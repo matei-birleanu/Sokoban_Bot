@@ -31,7 +31,10 @@ I also considered adding a heuristic named `misplace_box`, counting how many box
 ## Heuristic Comparison
 
 ### Comparison based on number of steps:
-
+#### LRTA* Steps
+![LRTA* Pulls](graphs/lrta_graphic_pasi_corect.png)
+#### Beam Search Steps
+![LRTA* Pulls](graphs/beam_graphic_pasi_corect.png)
 #### Observations:
 - The heuristic `Misplace_box` (number of misplaced boxes) performs the worst, especially on large maps (Large2, Super_hard1), generating hundreds of thousands to millions of steps, rendering it nearly useless.
 - Manhattan is acceptable on small maps but drastically increases steps on larger ones.
