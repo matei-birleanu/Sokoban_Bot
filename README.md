@@ -1,116 +1,80 @@
-# README SOKOBAN  
-**Author:** Bîrleanu Teodor Matei (334CA)  
-**Date:** 27.04.2024
+Teodor Matei Bîrleanu 334CA						27.04.2024
 
----
+# SOKOBAN README
 
-## Tema 1: Inteligență Artificială
+### ASSIGNMENT 1 AI
 
-Acest proiect implementează și compară două algoritmi de căutare pentru rezolvarea puzzle-ului Sokoban:  
-- **Learning Real-Time A*** (LRTA*)  
-- **Beam Search**
+I will start by describing the implementation of the Learning Real-Time A* (LRTA*) algorithm. I began by studying the pseudocode from the course, then proceeded by modifying the code from laboratory 1. Additionally, I utilized references for LRTA* [1] and Beam Search [2].
 
-Am introdus modificări conceptuale și tehnice pentru adaptarea euristicilor și îmbunătățirea performanței.
+## LRTA*
 
----
+For the LRTA* section, I conceptually altered the approach since there is no frontier, only a single current node, and decisions are made step-by-step as the algorithm progresses. Regarding the heuristic, I combined the initial heuristic with an adaptive memory updated at every step, differing from the classic A* algorithm where heuristic values remain unchanged.
 
-## 1. LRTA* (Learning Real-Time A*)
+At each step, from the current state, I generate all successors and retrieve or initialize their associated values. Then I select the best successor from each move and update the value of the current state. The algorithm stops once the number of allowed steps is exceeded or a final state is reached. The cost is stored in a dictionary H, mapping each map to a learned estimated cost.
 
-### 1.1 Prezentare generală
-LRTA* este o variantă online a A* care nu păstrează o frontieră completă, ci ia decizii pas cu pas. Euristica este adaptivă: se învață și se actualizează la fiecare pas.
+Essentially, I integrated A*'s concept of successor generation, evaluation, heuristic cost updating, and path memory.
 
-### 1.2 Detalii de implementare
-- **Frontieră**: Nu există frontieră; se păstrează doar nodul curent.  
-- **Euristică adaptivă**: Un dicționar `H[state]` stochează valoarea euristicii pentru fiecare stare; dacă nu există, se inițializează.  
-- **Generare succesor**: La fiecare pas, se generează toți succesorii, se evaluează costul `f = g + h`, se alege succesorul cu cel mai mic `f` și se actualizează `H[current]`.  
-- **Oprire**: Când se atinge starea finală sau se depășește numărul maxim de pași permis.
+## Beam Search
 
-### 1.3 Rezultate – Număr de pași
-![LRTA* Steps](sokoban_images/chart_0.png)
+For the Beam Search algorithm, I started from concepts presented in the course within the Local Beam Search algorithm, making several modifications.
 
-| Heuristic       | Easy1 | Easy2 | Medium1 | Medium2 | Hard1 | Hard2 | Large1  | Large2  | Super_hard1 |
-|-----------------|------:|------:|--------:|--------:|------:|------:|--------:|--------:|------------:|
-| Manhattan       |    92 |    18 |     198 |    4681 |  2093 |  4681 |    2802 |    9300 |         568 |
-| Hungarian       |   340 |    18 |     206 |    5564 |   679 |   786 |    1225 |   99009 |         369 |
-| BFS_static      |   214 |    18 |      45 |    8053 |   308 |   417 |     921 |   75685 |        1668 |
-| BFS_heuristic   |   210 |    18 |      37 |   10059 |   308 |   529 |     887 |   27427 |        1636 |
-| Greedy          |   340 |    18 |     206 |    9037 |   679 |  1146 |    1225 |   93513 |         316 |
-| Advanced        |   210 |    18 |      45 |    5997 |   308 |   529 |     887 |  145831 |        2478 |
-| BFS_Hung        |   150 |    18 |      45 |    5997 |    64 |  1039 |    1209 |  143675 |        2478 |
-| Misplace_box    |  1048 |   578 |   18793 |   24097 | 10632 |  1420 |  109649 | 1000001 |      625765 |
-| Box_to_goal     |  1016 |   550 |    2359 |    3716 |   803 |  1783 |   16530 |   67152 |        1604 |
+I began with a single initial state rather than randomly generating k states as presented in class materials. I also avoided re-expanding states by implementing a "visited" dictionary. To recover the complete solution path, each beam element is a tuple consisting of the map state, a sequence list of states from start to current, and the number of moves (though equivalent to the length of the state sequence, I preferred keeping it separate for readability).
 
-**Observații LRTA***:  
-- **Misplace_box** este cea mai slabă: sute de mii până la milioane de pași pe hărți mari.  
-- **Manhattan** e eficientă pe hărți mici, dar costă mult pe hărți mari.  
-- **BFS_static** și **BFS_heuristic** reduc semnificativ spațiul de căutare pe testele mari.
+For each candidate, I verify whether it has been visited and compute the heuristic score, always selecting the higher heuristic value, offering a more promising state.
 
-![LRTA* Expanded States](sokoban_images/chart_4.png)
+## Heuristics Used
 
----
+For heuristics, I started with two concepts. One heuristic calculates the Manhattan distance from each node to the closest box plus the distance from that box to the target. Another heuristic approach has two types: when holding a box, I only calculate the distance to the target; when not holding a box, I calculate the distance to the nearest box. Being a matrix, only Manhattan distances were employed. An additional concept involves prioritizing these two distances with weighted importance.
 
-## 2. Beam Search
+I also considered adding a heuristic named `misplace_box`, counting how many boxes are not yet in their positions. It is weaker but included for statistical and graphical analysis.
 
-### 2.1 Prezentare generală
-Beam Search ține un set restrâns de stări („beam”) și extinde doar cele mai promițătoare la fiecare pas, conform unei euristici.
+## Heuristic Comparison
 
-### 2.2 Detalii de implementare
-- Pornire dintr-o singură stare, nu din `k` stări aleatorii.  
-- Se evită re-expandarea cu un set `visited`.  
-- Fiecare element din beam este un tuplu: `(stare, lista_de_stări, număr_mutări)`.  
-- Se alege scorul euristic maxim pentru candidații neexplorați.
+### Comparison based on number of steps:
 
-### 2.3 Rezultate – Număr de pași
-![Beam Search Steps](sokoban_images/chart_3.png)
+#### Observations:
+- The heuristic `Misplace_box` (number of misplaced boxes) performs the worst, especially on large maps (Large2, Super_hard1), generating hundreds of thousands to millions of steps, rendering it nearly useless.
+- Manhattan is acceptable on small maps but drastically increases steps on larger ones.
+- BFS-based heuristics significantly improve results on larger tests.
+- Beam Search neutralizes heuristic differences, yielding similar outcomes.
 
-| Heuristic       | Easy1 | Easy2 | Medium1 | Medium2 | Hard1 | Hard2 | Large1 | Large2 | Super_hard1 |
-|-----------------|------:|------:|--------:|--------:|------:|------:|-------:|-------:|------------:|
-| Manhattan       |    18 |    10 |      12 |      37 |    31 |    91 |    162 |    116 |          40 |
-| Hungarian       |    18 |    10 |      12 |      29 |    38 |    42 |     26 |     33 |          38 |
-| BFS_static      |    18 |    10 |      31 |      36 |    26 |    46 |     12 |     24 |          40 |
-| BFS_heuristic   |    18 |    10 |      12 |      24 |    31 |    36 |     26 |     46 |          40 |
-| Greedy          |    18 |    10 |      12 |      29 |    38 |    42 |     26 |     33 |          41 |
-| Advanced        |    18 |    10 |      12 |      24 |    31 |    36 |     26 |     46 |          40 |
-| BFS_Hung        |    18 |    10 |      12 |      24 |    31 |    36 |     26 |     46 |          40 |
-| Misplace_box    |    30 |    10 |      35 |      28 |    31 |   132 |     54 |    131 |          57 |
-| Box_to_goal     |    18 |    10 |      12 |      37 |    31 |    91 |    162 |    116 |          40 |
+### Conclusions:
+- LRTA* shows vast differences among heuristics (especially large maps), while Beam Search maintains similar hierarchies with significantly fewer steps and less variability.
 
-**Observații Beam Search**:  
-- Reduce ordinea de mărime a numărului de pași de la LRTA* la zeci–sute.  
-- Performanță uniformă pe testele easy și medium (10–35 pași).  
-- Diferențele între euristici sunt atenuate.
+### Comparison based on number of expanded states:
 
-![Beam Search Expanded States](sokoban_images/chart_8.png)
+#### Observations:
+- Beam Search drastically reduces expanded states for all heuristics.
+- Manhattan and Box_to_goal have similar performances, slightly favoring Manhattan.
+- Misplace_box remains the weakest but significantly improves with Beam Search.
 
----
+### Conclusions:
+- Beam Search considerably reduces the absolute number of expanded states.
 
-## 3. Euristici folosite
-- **Manhattan**: Sumă de distanțe Manhattan.  
-- **Misplace_box**: Număr de cutii neplasate.  
-- **Box_to_goal**: Suma distanțelor minime cutie–țintă; suportă Manhattan și Euclidian.  
-- **Greedy**: Matching cutie–țintă pas cu pas + distanța jucător–cutie.  
-- **Hungarian**: Matching global optim (Hungarian) + distanța jucător–cutie.  
-- **BFS_static**: BFS preprocesat per țintă, cache distanțe statice.  
-- **BFS_heuristic**: BFS dinamic multi-țintă și de la jucător.  
-- **Advanced**: BFS_heuristic + detectare deadlock + penalizări + Manhattan.  
-- **BFS_Hung**: Combinează deadlock, BFS static, matching optim și deplasare jucător.
+### Comparison based on runtime:
 
----
+#### Observations:
+- Beam Search considerably reduces runtime (up to 3–5× faster than LRTA*), though LRTA* exhibits greater time variability.
 
-## 4. Concluzii generale
-- **LRTA*** evidențiază diferențe mari între euristici pe hărți mari.  
-- **Beam Search** menține ierarhiile, dar comprima spațiul de căutare cu câteva mii de ori.  
-- Euristica rămâne critică: chiar și în Beam Search, una slabă costă câteva mii de stări.
+### Conclusions:
+- Beam Search consistently achieves lower runtime across most maps compared to LRTA*.
 
----
+### Comparison based on number of pull operations:
+    ![LRTA* Pulls](graphs/lrta_graphic_pasi_corect.png)
+    
+    ###Beam Search
+#### Observations:
+- Beam Search greatly minimizes pull operations compared to LRTA*, significantly smoothing out differences among heuristics.
 
-## 5. Performanță – Timp de rulare
-![Running Time Comparison](sokoban_images/chart_9.png)
+### Conclusions:
+- Beam Search greatly reduces pull operations across all heuristics, nearly eliminating disadvantages of weaker heuristics.
 
----
+## References
+- [1] https://turing.cs.pub.ro/blia_2003/Real-time_search_1.htm
+- [2] https://www.geeksforgeeks.org/introduction-to-beam-search-algorithm/
+- https://www.askpython.com/python/examples/beam-search-algorithm
+- [3] https://www.sciencedirect.com/science/article/pii/S0004370215000867
+- https://timallanwheeler.com/blog/2022/01/19/basic-search-algorithms-on-sokoban/
+- https://timallanwheeler.com/blog/2022/01/23/sokoban-reach-and-code-performance/
+- https://stackoverflow.com/questions/4237462/sokoban-solver-tips
 
-## 6. Referințe
-1. Real-time search (LRTA*) – Turing CS PUB RO [Link](https://turing.cs.pub.ro/blia_2003/Real-time_search_1.htm)  
-2. Introduction to Beam Search – GeeksforGeeks [Link](https://www.geeksforgeeks.org/introduction-to-beam-search-algorithm/)  
-3. Heuristics for Sokoban – ScienceDirect [Link](https://www.sciencedirect.com/science/article/pii/S0004370215000867)  
-4. Sokoban solver tips – StackOverflow [Link](https://stackoverflow.com/questions/4237462/sokoban-solver-tips)  
