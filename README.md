@@ -60,6 +60,7 @@ I also considered adding a heuristic named `misplace_box`, counting how many box
 - Beam Search consistently achieves lower runtime across most maps compared to LRTA*.
 
 ### Comparison based on number of pull operations:
+#### LRTA* Pull Operations
 ![LRTA* Pulls](graphs/lrta_graphic_pasi_corect.png)
     
 #### Observations:
