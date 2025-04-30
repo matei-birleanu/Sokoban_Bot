@@ -42,7 +42,10 @@ I also considered adding a heuristic named `misplace_box`, counting how many box
 - LRTA* shows vast differences among heuristics (especially large maps), while Beam Search maintains similar hierarchies with significantly fewer steps and less variability.
 
 ### Comparison based on number of expanded states:
-
+#### LRTA* Expanded States
+![LRTA* Pulls](graphs/lrta_graphic_stari.png)
+#### Beam Search Expanded States
+![LRTA* Pulls](graphs/beam_graphic_stari.png)
 #### Observations:
 - Beam Search drastically reduces expanded states for all heuristics.
 - Manhattan and Box_to_goal have similar performances, slightly favoring Manhattan.
