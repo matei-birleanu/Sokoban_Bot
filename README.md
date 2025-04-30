@@ -52,7 +52,10 @@ I also considered adding a heuristic named `misplace_box`, counting how many box
 - Beam Search considerably reduces the absolute number of expanded states.
 
 ### Comparison based on runtime:
-
+#### LRTA* Runtime
+![LRTA* Pulls](graphs/timp_rulare_lrta.png)
+#### Beam Search Runtime
+![LRTA* Pulls](graphs/timp_rulare_beam.png)
 #### Observations:
 - Beam Search considerably reduces runtime (up to 3–5× faster than LRTA*), though LRTA* exhibits greater time variability.
 
@@ -62,6 +65,8 @@ I also considered adding a heuristic named `misplace_box`, counting how many box
 ### Comparison based on number of pull operations:
 #### LRTA* Pull Operations
 ![LRTA* Pulls](graphs/lrta_graphic_pasi_corect.png)
+#### Beam Search Pull Operations
+![LRTA* Pulls](graphs/beam_graphic_pasi_corect.png)
     
 #### Observations:
 - Beam Search greatly minimizes pull operations compared to LRTA*, significantly smoothing out differences among heuristics.
