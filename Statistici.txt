@@ -1,0 +1,301 @@
+LRTA * 
+
+Ca si euristici plec de la 2 idei. O prima idee de euristica esta ca in fiecare nod sa am distanta manhattan pana la cea mai apropiata cutie + distanta de la cea mai
+apropiata cutie pana la tinta. O alta idee este am 2 tipuri de functii euristice. Cand am o cutie sa calculez doar distanta pana la target iar cand nu am cutie sa calculez
+distanta pana la cea mai apropiata cutie. Fiind o matrice voi folosit in cadrul euristicilor doar distanta Manhattan. O alta idee ar fi ca pt idee manhattan sa prioriteze cu o pondere cele 2 distante de la player la cutie si de la cutie la tinta.
+
+
+----manhattan----
+easy_map1 83 stari 92 pasi.
+easy_map2  35 stari 18 pasi.
+hard_map1  1021 stari 2093 pasi..
+hard_map2  387 stari 611 pasi.
+large_map1  1785 stari 2802 pasi.
+large_map2  6667 stari 9300 pasi.
+medium_map1  231 stari 198 pasi.
+medium_map2  3534 stari 4681 pasi.
+super_hard_map1  629 stari 568 pasi.
+
+----misplaced_boxes_heuristic----
+easy_map1 434 stări 1048 pași
+easy_map2  316 stări 578 pași.
+hard_map1  9256 stări 10632 pași.
+hard_map2  1509 stări 1420 pași.
+large_map1  71314 stări 109649 pași
+large_map2  832237 stări 1000001 pași.
+medium_map1  15098 stări 18793 pași.
+medium_map2  21617 stări 24097 pași.
+super_hard_map1  614388 stări 652765 pași.
+
+----box_to_goal_heuristic----
+easy_map1 417 stări 1016 pași.
+easy_map2  304 stări 550 pași.
+hard_map1  680 stări 803 pași.
+hard_map2  1660 stări 1783 pași.
+large_map1  13430 stări 16530 pași
+large_map2  67256 stări 67152 pași.
+medium_map1  2437 stări 2359 pași.
+medium_map2  3381 stări 3716 pași.
+super_hard_map1  1309 stări 1604 pași.
+
+
+----hungarian_player_and_boxes_heuristic----
+easy_map1  163 stari 340 pasi.
+easy_map2  32 stari 18 pasi.
+hard_map1  461 stari 679 pasi.
+hard_map2  533 stari 786 pasi.
+large_map1  1093 stari 1225 pasi.
+large_map2 62617 stări 99009 pași.
+medium_map1  280 stari 206 pasi.
+medium_map2  3893 stari 5564 pasi.
+super_hard_map1  536 stari 369 pasi.
+
+
+
+----bfs_static_heuristic----
+easy_map1  163 stari 214 pasi.
+easy_map2  32 stari 18 pasi.
+hard_map1  212 stari 308 pasi.
+hard_map2  491 stari 417 pasi.
+large_map1  917 stari 921 pasi.
+large_map2  51517 stari 75685 pasi.
+medium_map1  85 stari 45 pasi.
+medium_map2  5038 stari 8053 pasi.
+super_hard_map1  1496 stari 1668 pasi.
+
+----greedy_matching_heuristic----
+easy_map1  163 stari 340 pasi.
+easy_map2  32 stari 18 pasi.
+hard_map1  461 stari 679 pasi.
+hard_map2  715 stari 1146 pasi.
+large_map1  1093 stari 1225 pasi.
+large_map2  58517 stari 93513 pasi.
+medium_map1  280 stari 206 pasi.
+medium_map2  5523 stari 9037 pasi
+super_hard_map1  430 stari 316 pasi.
+
+
+----bfs_heuristic----
+easy_map1  163 stari 210 pasi.
+easy_map2  32 stari 18 pasi.
+hard_map1  212 stari 308 pasi
+hard_map2  544 stari 529 pasi.
+large_map1  892 stari 887 pasi.
+large_map2  21079 stari 27427 pasi
+medium_map1  81 stari 37 pasi.
+medium_map2  6270 stari 10059 pasi
+super_hard_map1  1496 stari 1636 pasi
+
+
+----advanced_heuristic----
+easy_map1  163 stari 210 pasi.
+easy_map2  32 stari 18 pasi.
+hard_map1  212 stari 308 pasi
+hard_map2  544 stari 529 pasi.
+large_map1  892 stari 887 pasi.
+large_map2 90560 stări 145831 pași.
+medium_map1  85 stari 45 pasi.
+medium_map2  3654 stari 5997 pasi.
+super_hard_map1  2338 stari 2478 pasi.
+
+
+----bfs_hungarian_heuristic----
+easy_map1  133 stari 150 pasi.
+easy_map2  32 stari 18 pasi.
+hard_map1  90 stari 64 pasi.
+hard_map2  697 stari 1039 pasi.
+large_map1  1278 stari 1209 pasi.
+large_map2 94200 stări 143675 pași
+medium_map1  85 stari 45 pasi.
+medium_map2  3654 stari 5997 pasi.
+super_hard_map1  2338 stari 2478 pasi.
+
+
+
+                                            BEAM SEARCH
+                                                width = 30
+----manhattan----
+easy_map1 --> 18 pasi, 245 stari
+easy_map2 --> 10 pasi, 200 stari
+medium_map1 --> 12 pasi, 378 stari
+medium_map2 --> 37 pasi, 1512 stari
+hard_map1 --> 31 pasi, 1181 stari
+hard_map2 --> 91 pasi 2981 stari
+large_map1 --> 162 pasi 5407 stari
+large_map2 --> 116 pasi 4423 stari
+super_hard_map1 --> 40 pasi 2078 stari
+
+
+----misplaced_boxes_heuristic----
+easy_map1 --> 30 pasi,  363 stari
+easy_map2 --> 10 pasi,  200 stari
+medium_map1 --> 35 pasi, 1347 stari
+medium_map2 --> 28 pasi, 1160 stari
+hard_map1 --> 31 pasi, 1232 stari
+hard_map2 --> 132 pasi, 5252 stari
+large_map1 --> 54 pasi, 1864 stari
+large_map2 --> 131 pasi, 5639 stari
+super_hard_map1 --> 57 pasi, 2784 stari
+
+----box_to_goal_heuristic----
+easy_map1 --> 18 pasi, 245 stari
+easy_map2 --> 10 pasi, 200 stari
+medium_map1 --> 12 pasi, 378 stari
+medium_map2 --> 37 pasi, 1512 stari
+hard_map1 --> 31 pasi, 1181 stari
+hard_map2 --> 91 pasi, 2981 stari
+large_map1 --> 162 pasi, 5407 stari
+large_map2 --> 116 pasi, 4423 stari
+super_hard_map1 --> 40 pasi, 2078 stari
+
+
+----hungarian_player_and_boxes_heuristic----
+easy_map1 --> 18 pasi
+easy_map2 --> 10 pasi
+medium_map1 --> 12 pasi
+medium_map2 --> 29 pasi
+hard_map1 --> 38 pasi
+hard_map2 --> 42 pasi
+large_map1 --> 26 pasi
+large_map2 --> 33 pasi
+super_hard_map1 --> 38 pasi
+
+
+
+----bfs_static_heuristic----
+easy_map1 --> 18 pasi
+easy_map2 --> 10 pasi
+hard_map1 --> 31 pasi
+hard_map2 --> 36 pasi
+large_map1 --> 26 pasi
+large_map2 --> 46 pasi
+medium_map1 --> 12 pasi
+medium_map2 --> 24 pasi
+super_hard_map1 --> 40 pasi
+
+----greedy_matching_heuristic----
+easy_map1 --> 18 pasi
+easy_map2 --> 10 pasi
+medium_map1 --> 12 pasi
+medium_map2 --> 29 pasi
+hard_map1 --> 38 pasi
+hard_map2 --> 42 pasi
+large_map1 --> 26 pasi
+large_map2 --> 33 pasi
+super_hard_map1 --> 41 pasi
+
+
+
+----bfs_heuristic----
+easy_map1 --> 18 pasi
+easy_map2 --> 10 pasi
+medium_map1 --> 12 pasi
+medium_map2 --> 24 pasi
+hard_map1 --> 31 pasi
+hard_map2 --> 36 pasi
+large_map1 --> 26 pasi
+large_map2 --> 46 pasi
+super_hard_map1 --> 40 pasi
+
+
+----advanced_heuristic----
+easy_map1 --> 18 pasi
+easy_map2 --> 10 pasi
+medium_map1 --> 12 pasi
+medium_map2 --> 24 pasi
+hard_map1 --> 31 pasi
+hard_map2 --> 36 pasi
+large_map1 --> 26 pasi
+large_map2 --> 46 pasi
+super_hard_map1 --> 40 pasi
+
+
+----bfs_hungarian_heuristic----
+easy_map1 --> 18 pasi
+easy_map2 --> 10 pasi
+medium_map1 --> 12 pasi
+medium_map2 --> 24 pasi
+hard_map1 --> 31 pasi
+hard_map2 --> 36 pasi
+large_map1 --> 26 pasi
+large_map2 --> 46 pasi
+super_hard_map1 --> 40 pasi
+
+
+
+NUMAR PULL-URI
+LRTA*
+
+----manhattan----
+easy_map1 --> 1 pull-uri
+easy_map2 --> 0 pull-uri
+medium_map1 --> 3 pull-uri
+medium_map2 --> 150 pull-uri
+hard_map1 --> 74 pull-uri
+hard_map2 --> 7 pull-uri
+large_map1 --> 33 pull-uri
+large_map2 --> 70 pull-uri
+super_hard_map1 --> 14 pull-uri
+
+
+----misplaced_boxes_heuristic----
+easy_map1 --> 21 pull-uri
+easy_map2 --> 13 pull-uri
+medium_map1 --> 41 pull-uri
+medium_map2 --> 97 pull-uri
+hard_map1 --> 24 pull-uri
+hard_map2 --> 26 pull-uri
+large_map1 --> 153 pull-uri
+large_map2 --> 454 pull-uri
+super_hard_map1 --> 32 pull-uri
+
+
+----box_to_goal_heuristic----
+easy_map1 --> 1 pull-uri
+easy_map2 --> 0 pull-uri
+medium_map1 --> 3 pull-uri
+medium_map2 --> 150 pull-uri
+hard_map1 --> 74 pull-uri
+hard_map2 --> 7 pull-uri
+large_map1 --> 33 pull-uri
+large_map2 --> 70 pull-uri
+super_hard_map1 --> 14 pull-uri
+
+
+
+Beam search
+----manhattan----
+easy_map1 --> 1 pull-uri
+easy_map2 --> 0 pull-uri
+medium_map1 --> 3 pull-uri
+medium_map2 --> 7 pull-uri
+hard_map1 --> 4 pull-uri
+hard_map2 --> 9 pull-uri
+large_map1 --> 16 pull-uri
+large_map2 --> 9 pull-uri
+super_hard_map1 --> 13 pull-uri
+
+
+
+----misplaced_boxes_heuristic----
+easy_map1 --> 1 pull-uri
+easy_map2 --> 0 pull-uri
+medium_map1 --> 4 pull-uri
+medium_map2 --> 4 pull-uri
+hard_map1 --> 3 pull-uri
+hard_map2 --> 9 pull-uri
+large_map1 --> 3 pull-uri
+large_map2 --> 8 pull-uri
+super_hard_map1 --> 8 pull-uri
+
+
+----box_to_goal_heuristic----
+easy_map1 --> 1 pull-uri
+easy_map2 --> 0 pull-uri
+medium_map1 --> 3 pull-uri
+medium_map2 --> 7 pull-uri
+hard_map1 --> 4 pull-uri
+hard_map2 --> 9 pull-uri
+large_map1 --> 16 pull-uri
+large_map2 --> 9 pull-uri
+super_hard_map1 --> 13 pull-uri
