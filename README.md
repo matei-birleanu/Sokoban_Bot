@@ -62,7 +62,6 @@ I also considered adding a heuristic named `misplace_box`, counting how many box
 ### Comparison based on number of pull operations:
     ![LRTA* Pulls](graphs/lrta_graphic_pasi_corect.png)
     
-    ###Beam Search
 #### Observations:
 - Beam Search greatly minimizes pull operations compared to LRTA*, significantly smoothing out differences among heuristics.
 
